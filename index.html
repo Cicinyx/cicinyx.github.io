@@ -76,6 +76,21 @@
         .content-slide .overflow-hidden {
             margin-bottom: 15px;
         }
+        
+        /* 超小屏幕图片高度进一步优化 */
+        .slide-hero-slider {
+            height: 50vh !important; /* 进一步降低到50vh */
+            min-height: 250px !important; /* 最小高度降低到250px */
+        }
+        
+        .mask-hero-slider {
+            height: 50vh !important;
+        }
+        
+        /* 调整图片显示，优先显示横向内容 */
+        .image-hero-slide {
+            object-position: center 30% !important; /* 稍微向上偏移，显示更多横向内容 */
+        }
     }
 
     /* 确保链接在手机端有足够的点击区域 */
@@ -137,6 +152,55 @@
             opacity: 1 !important;
             visibility: visible !important;
             transition: opacity 0.2s ease-out, transform 0.3s ease-out !important;
+        }
+    }
+    
+    /* 手机端触摸优化 */
+    @media (max-width: 768px) {
+        .hero-slider {
+            touch-action: pan-y pinch-zoom;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        .slide-hero-slider {
+            touch-action: pan-y;
+        }
+        
+        /* 修复手机端背景图显示问题 */
+        .image-hero-slide {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 1 !important;
+        }
+        
+        /* 手机端图片高度优化 - 降低高度显示更多横向内容 */
+        .slide-hero-slider {
+            position: relative !important;
+            overflow: visible !important;
+            height: 60vh !important; /* 从100vh降低到60vh */
+            min-height: 300px !important; /* 从400px降低到300px */
+        }
+        
+        /* 确保内容层级正确 */
+        .content-slide {
+            position: relative !important;
+            z-index: 10 !important;
+        }
+        
+        /* 确保mask容器正确显示 */
+        .mask-hero-slider {
+            overflow: visible !important;
+            height: 60vh !important; /* 从100vh降低到60vh */
+        }
+        
+        /* 调整图片的object-position，让横向内容居中显示 */
+        .image-hero-slide {
+            object-position: center center !important;
         }
     }
     </style>
