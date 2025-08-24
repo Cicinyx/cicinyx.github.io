@@ -2320,7 +2320,7 @@ a {
 }
 
 .page-wrapper {
-  background-color: #0D1B2A;
+  background-color: #1E1B1C;
   color: var(--bisque);
 }
 
@@ -3098,7 +3098,7 @@ a {
 
 .section.padding-vertical.background-black {
   z-index: 1;
-  background-color: #0D1B2A;
+  background-color: #1E1B1C;
   position: sticky;
   bottom: 0;
 }
