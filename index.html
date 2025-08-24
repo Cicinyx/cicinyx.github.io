@@ -86,6 +86,59 @@
             align-items: center;
         }
     }
+    
+    /* 触摸滑动相关样式 */
+    .slide-hero-slider {
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        will-change: transform, opacity;
+    }
+    
+    /* 优化文字切换效果，避免重叠 */
+    .slide-hero-slider .heading-style-h2 {
+        transition: opacity 0.2s ease-out, transform 0.3s ease-out;
+        will-change: opacity, transform;
+    }
+    
+    /* 确保文字容器有正确的层级 */
+    .content-slide .overflow-hidden {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* 文字切换时的状态管理 */
+    .slide-hero-slider[aria-hidden="true"] .heading-style-h2 {
+        opacity: 0 !important;
+        transform: translate3d(0px, 100%, 0px) scale3d(1, 1, 1) !important;
+        transition: none !important;
+    }
+    
+    .slide-hero-slider:not([aria-hidden="true"]) .heading-style-h2 {
+        opacity: 1 !important;
+        transition: opacity 0.3s ease-out, transform 0.4s ease-out !important;
+    }
+    
+    /* 手机端文字切换额外优化 */
+    @media (max-width: 768px) {
+        .slide-hero-slider .heading-style-h2 {
+            transition: opacity 0.15s ease-out, transform 0.25s ease-out !important;
+        }
+        
+        /* 确保隐藏的slide文字完全不可见 */
+        .slide-hero-slider[aria-hidden="true"] .heading-style-h2,
+        .slide-hero-slider[style*="visibility: hidden"] .heading-style-h2 {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: translate3d(0px, 100%, 0px) scale3d(1, 1, 1) !important;
+            transition: none !important;
+        }
+        
+        /* 当前激活slide的文字动画 */
+        .slide-hero-slider:not([aria-hidden="true"]) .heading-style-h2 {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transition: opacity 0.2s ease-out, transform 0.3s ease-out !important;
+        }
+    }
     </style>
 </head>
 <body>
@@ -94,14 +147,14 @@
          data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="600" data-nav-spacing="3"
          data-duration="1950" data-infinite="true" role="region" aria-label="carousel">
         <div class="mask-hero-slider w-slider-mask" id="w-slider-mask-0">
-            <div class="slide-hero-slider w-slide" aria-label="1 of 3" role="group"
+                                        <div class="slide-hero-slider w-slide" aria-label="1 of 3" role="group"
                  style="transition: all; transform: translateX(0px); opacity: 1;" aria-hidden="true">
                 <div class="collection-list-wrapper-category w-dyn-list" aria-hidden="true">
                     <div role="list" class="collection-list-category w-dyn-items" aria-hidden="true">
                         <div role="listitem" class="collection-item-category w-dyn-item" aria-hidden="true"><img
                                 src="assets/67f0f1ba7ec83ad142589a73_2-2.9.jpg"
                                 loading="lazy" alt="" sizes="100vw"
-                                srcset="assets/67f0f1ba7ec83ad142589a73_2-2.9-p-500.jpg 500w, assets/67f0f1ba7ec83ad142589a73_2-2.9-p-800.jpg 800w, assets/67f0f1ba7ec83ad142589a73_2-2.9-p-1080.jpg 1080w, assets/67f0f1ba7ec83ad142589a73_2-2.9-p-1600.jpg 1600w, assets/67f0f1ba7ec83ad142589a73_2-2.9-p-2000.jpg 2000w, assets/67f0f1ba7ec83ad142589a73_2-2.9-p-2600.jpg 2600w, assets/67f0f1ba7ec83ad142589a73_2-2.9.jpg 2659w"
+                                srcset="assets/67f0f1ba7ec83ad142589a73_2-2.9.jpg 1x"
                                 class="image-hero-slide"
                                 style="opacity: 0.000231; transform: translate3d(0px, 0px, 0px) scale3d(1.39986, 1.39986, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; will-change: opacity, transform;"
                                 aria-hidden="true">
@@ -134,7 +187,7 @@
                         <div role="listitem" class="collection-item-category w-dyn-item" aria-hidden="true"><img
                                 src="assets/67f0ef784d93d2a7b95f4d73_4.0.png"
                                 loading="lazy" alt="" sizes="100vw"
-                                srcset="assets/67f0ef784d93d2a7b95f4d73_4.0-p-500.png 500w, assets/67f0ef784d93d2a7b95f4d73_4.0-p-800.png 800w, assets/67f0ef784d93d2a7b95f4d73_4.0-p-1080.png 1080w, assets/67f0ef784d93d2a7b95f4d73_4.0-p-1600.png 1600w, assets/67f0ef784d93d2a7b95f4d73_4.0-p-2000.png 2000w, assets/67f0ef784d93d2a7b95f4d73_4.0-p-2600.png 2600w, assets/67f0ef784d93d2a7b95f4d73_4.0-p-3200.png 3200w, assets/67f0ef784d93d2a7b95f4d73_4.0.png 4000w"
+                                srcset="assets/67f0ef784d93d2a7b95f4d73_4.0.png 1x"
                                 class="image-hero-slide"
                                 style="opacity: 0; transform: translate3d(0px, 0px, 0px) scale3d(1.4, 1.4, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
                                 aria-hidden="true">
@@ -170,7 +223,7 @@
                         <div role="listitem" class="collection-item-category w-dyn-item"><img
                                 src="assets/67f0f0aed02c210910b74a28_5-3.jpg"
                                 loading="lazy" alt="" sizes="100vw"
-                                srcset="assets/67f0f0aed02c210910b74a28_5-3-p-500.jpg 500w, assets/67f0f0aed02c210910b74a28_5-3-p-800.jpg 800w, assets/67f0f0aed02c210910b74a28_5-3-p-1080.jpg 1080w, assets/67f0f0aed02c210910b74a28_5-3-p-1600.jpg 1600w, assets/67f0f0aed02c210910b74a28_5-3-p-2000.jpg 2000w, assets/67f0f0aed02c210910b74a28_5-3-p-2600.jpg 2600w, assets/67f0f0aed02c210910b74a28_5-3-p-3200.jpg 3200w, assets/67f0f0aed02c210910b74a28_5-3.jpg 8183w"
+                                srcset="assets/67f0f0aed02c210910b74a28_5-3.jpg 1x"
                                 class="image-hero-slide"
                                 style="opacity: 0.564874; transform: translate3d(0px, 0px, 0px) scale3d(1.05765, 1.05765, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; will-change: opacity, transform;">
                             <div class="content-slide">
@@ -242,7 +295,7 @@
                 data-w-id="0f306686-5ce8-5cf0-362d-c1bf3bd13f5f" style="width: 0%;" class="text-span-2">.</span></h2>
             <p data-w-id="82fd8933-a879-cc08-7af1-96975cbe466a"
                style="transform: translate3d(0px, 50px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); opacity: 0; transform-style: preserve-3d;"
-               class="text-size-medium max-widt-medium">I came to film not with noise but with stillness, from another life into this one, drawn by moments that speak without words.I watch. I listen. I tell quiet stories that hope to be felt.</p></div>
+               class="text-size-medium max-widt-medium"><br><em>"The world is full of magic things, patiently waiting for our senses to grow sharper."</em>— W.B. Yeats</p></div>
         <div class="overflow-hidden">
             <div class="container display-grid">
                 <div class="column"><h2 class="heading-style-h3"><span data-w-id="58ca744d-c677-9f93-c5d8-34b4068ca343"
