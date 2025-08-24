@@ -202,6 +202,45 @@
         .image-hero-slide {
             object-position: center center !important;
         }
+        
+        /* 手机端点击区域切换功能 */
+        .slide-hero-slider {
+            position: relative;
+        }
+        
+        /* 创建三个可点击的区域 */
+        .slide-hero-slider::before,
+        .slide-hero-slider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 33.33%;
+            z-index: 20;
+            cursor: pointer;
+        }
+        
+        /* 左侧区域 - 点击切换到上一张 */
+        .slide-hero-slider::before {
+            left: 0;
+        }
+        
+        /* 右侧区域 - 点击切换到下一张 */
+        .slide-hero-slider::after {
+            right: 0;
+        }
+        
+        /* 中间区域 - 通过JavaScript处理 */
+        .slide-hero-slider .content-slide {
+            position: relative;
+            z-index: 25;
+        }
+        
+        /* 确保文字在点击区域之上 */
+        .slide-hero-slider .heading-style-h2 {
+            position: relative;
+            z-index: 30;
+        }
     }
     </style>
 </head>
@@ -937,5 +976,69 @@
         type="text/javascript"></script>
 <script src="assets/0d8fb09a.ecd547542ebe1f6f.js"
         type="text/javascript"></script>
+
+<!-- 手机端点击区域切换功能 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 只在手机端启用点击区域切换
+    if (window.innerWidth <= 768) {
+        const slides = document.querySelectorAll('.slide-hero-slider');
+        const leftArrow = document.querySelector('.left-arrow');
+        const rightArrow = document.querySelector('.right-arrow');
+        
+        // 为每个slide添加点击区域事件
+        slides.forEach(function(slide) {
+            // 左侧区域点击 - 切换到上一张
+            slide.addEventListener('click', function(e) {
+                const rect = slide.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const slideWidth = rect.width;
+                
+                // 左侧33.33%区域
+                if (clickX < slideWidth * 0.33) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (leftArrow) {
+                        leftArrow.click();
+                    }
+                }
+                // 右侧33.33%区域
+                else if (clickX > slideWidth * 0.67) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (rightArrow) {
+                        rightArrow.click();
+                    }
+                }
+                // 中间区域 - 不处理，保持原有功能
+            });
+        });
+        
+        // 添加触摸反馈效果
+        slides.forEach(function(slide) {
+            slide.addEventListener('touchstart', function(e) {
+                const rect = slide.getBoundingClientRect();
+                const touchX = e.touches[0].clientX - rect.left;
+                const slideWidth = rect.width;
+                
+                // 添加触摸反馈
+                if (touchX < slideWidth * 0.33) {
+                    slide.style.borderLeft = '3px solid rgba(255,255,255,0.5)';
+                } else if (touchX > slideWidth * 0.67) {
+                    slide.style.borderRight = '3px solid rgba(255,255,255,0.5)';
+                }
+            });
+            
+            slide.addEventListener('touchend', function() {
+                // 移除触摸反馈
+                slide.style.borderLeft = '';
+                slide.style.borderRight = '';
+            });
+        });
+        
+        console.log('手机端点击区域切换功能已启用');
+    }
+});
+</script>
 </body>
 </html>
